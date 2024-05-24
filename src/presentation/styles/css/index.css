@@ -1,0 +1,8 @@
+@import "./_reset.css";
+@import "./_fonts.css";
+
+body,
+html {
+  font-family: "Inter";
+  font-size: 15px;
+}
