@@ -1,4 +1,3 @@
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { createApi, fetchBaseQuery, retry } from "@reduxjs/toolkit/query/react";
 import {
   configureStore,
@@ -7,8 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import {
   counter,
-  increment,
-  incrementEffect,
+  incrementListener,
 } from "~/application/features/counter/counter";
 import { auth } from "~/application/features/auth";
 import { API_TAGS } from "~/application/managers/api/config";
@@ -21,10 +19,7 @@ import { API_TAGS } from "~/application/managers/api/config";
 
 const listenerMiddleware = createListenerMiddleware();
 
-listenerMiddleware.startListening({
-  actionCreator: increment,
-  effect: incrementEffect,
-});
+[incrementListener].forEach(listenerMiddleware.startListening);
 
 // ===========================
 //
@@ -107,8 +102,4 @@ export const store = createStore();
 
 // ===========================
 
-export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
-
-export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

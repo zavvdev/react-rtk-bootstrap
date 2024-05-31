@@ -36,9 +36,12 @@ export const counter = createSlice({
 export const { selectCounter } = counter.selectors;
 export const { increment, decrement, incrementByAmount } = counter.actions;
 
-export const incrementEffect = (
-  action: Action,
-  api: ListenerEffectAPI<unknown, ThunkDispatch<unknown, unknown, Action>>,
-) => {
-  console.log("incrementEffect", action, api);
+export const incrementListener = {
+  actionCreator: increment,
+  effect: (
+    action: Action,
+    api: ListenerEffectAPI<unknown, ThunkDispatch<unknown, unknown, Action>>,
+  ) => {
+    console.log("incrementEffect", action, api);
+  },
 };
